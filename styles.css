@@ -1,6 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 /* General Styles */
+
+html {
+    scroll-behavior: smooth;
+    scroll-snap-type: y proximity;
+}
+
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
@@ -17,6 +23,9 @@ header {
     width: 100%;
     z-index: 2;
     padding-left: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transform: translateY(0); /* Default position: fully visible */
+    transition: transform 0.3s ease; /* Animation for sliding in/out */
 }
 
 .overlay {
@@ -94,10 +103,12 @@ header {
         flex-direction: column;
         border-radius: 6px;
         background-color: transparent;
+        right: -20px;
     }
 
     .burger-menu {
-        position: relative;
+        position: absolute;
+        right: 10%;
         display: flex;
         flex-direction: column;
     }
@@ -120,13 +131,12 @@ header {
 
     .nav-link {
         background: #333;
-        padding: 0.5rem 0.3rem 0.5rem 0.3rem;
+        padding: 0;
         margin: 0.2rem;
-        border: 1px solid #b78757;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-        font-size: 32px;
-        font-weight: lighter;
+        font-size: 20px;
         text-decoration: none;
+        right: 50%;
     }
 
 }
@@ -183,7 +193,7 @@ h1 {
 }
 
 h2 {
-    font-weight: lighter;
+    font-weight: 230;
     font-size: 35px;
     color: #b78757;
 }
@@ -197,6 +207,40 @@ p {
         font-size: 13px;
         font-weight: normal;
     }
+}
+
+/* Hero Separator */
+h3 {
+    font-weight: 230;
+    font-size: 35px;
+    color: white;
+}
+
+.hero_separator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    background-color: #111;
+    padding: 30px;
+}
+
+.line {
+    width: 80%;
+    height: 1px;
+    background-color: #b78757;
+    margin: 20px 0;
+}
+
+.snap-section {
+    scroll-snap-align: start;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.non-snap-section {
+    min-height: 100vh;
 }
 
 
@@ -235,7 +279,7 @@ p {
 .footer {
     background-color: #303030; /* Dark background */
     color: #fff; /* Light text color */
-    padding: 20px;
+    padding: 30px;
     text-align: left; /* Center-align content for smaller screens */
 }
 
