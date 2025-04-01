@@ -62,18 +62,29 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-//LOGIC FOR SNAPPING
+
+
+// LOGIC FOR SNAPPING
 // Select all the snapping sections
 const sections = document.querySelectorAll(".snap-section");
 
 // Track the last scroll position to calculate scroll direction
 let lastScrollY = window.scrollY;
+const scrollThreshold = 20; // Set a threshold to reduce sensitivity (in pixels).
 
 window.addEventListener("scroll", () => {
     const currentScrollY = window.scrollY;
     const viewportHeight = window.innerHeight;
 
-    // Determine scroll direction
+    // Calculate the scroll delta (absolute scroll distance)
+    const scrollDelta = Math.abs(currentScrollY - lastScrollY);
+
+    // Ignore minor scroll movements (less than the threshold)
+    if (scrollDelta < scrollThreshold) {
+        return; // Exit early if the movement is too small
+    }
+
+    // Determine scroll direction (only significant scrolls trigger)
     const scrollingDown = currentScrollY > lastScrollY;
     const scrollingUp = currentScrollY < lastScrollY;
 
@@ -96,6 +107,8 @@ window.addEventListener("scroll", () => {
     // Update the last scroll position
     lastScrollY = currentScrollY;
 });
+
+
 
 // LOGIC FOR HEADER/NAVIGATION BAR TOGGLE (SLIDE UP OR DOWN)
 function initHeaderToggle() {
