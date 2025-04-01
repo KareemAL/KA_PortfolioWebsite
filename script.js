@@ -25,11 +25,15 @@ hiddenElements.forEach(element => {
 document.addEventListener('DOMContentLoaded', () => {
     const burgerIcon = document.querySelector('.burger-icon');
     const dropdown = document.querySelector('.dropdown');
+    const overlay = document.querySelector('.overlay');
+    const mainContent = document.querySelector('.main-content');
+
 
     // Toggle dropdown on burger icon click (Mobile behavior)
     burgerIcon?.addEventListener('click', () => {
         if (window.innerWidth <= 768) { // Apply behavior only on mobile
             dropdown.style.display = dropdown.style.display === 'flex' ? 'none' : 'flex';
+            overlay.style.display = overlay.style.display === 'block' ? 'none' : 'block';
         }
     });
 
@@ -38,11 +42,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (window.innerWidth <= 768) { // Apply behavior only on mobile
             if (!burgerIcon.contains(event.target) && !dropdown.contains(event.target)) {
                 dropdown.style.display = 'none';
+                overlay.style.display = 'none';
             }
         }
     });
 
-    // Resize event listener to reset dropdown display based on viewport width
+
+// Resize event listener to reset dropdown display based on viewport width
     window.addEventListener('resize', () => {
         if (window.innerWidth > 768) {
             // On desktop, ensure dropdown is visible

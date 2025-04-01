@@ -10,13 +10,19 @@
 <body>
 
 <header>
-    <nav>
-        <ul class="nav-links">
-            <li><a href="index.html"><img src="test_image_1.png" alt="Your Photo" class="profile-pic-header"></a></li>
-            <li><a href="projects.html">Projects</a></li>
-            <li><a href="resume.html">Résumé</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
+    <div class="overlay"></div>
+    <nav class="navbar">
+        <a href="index.html"><img src="test_image_1.png" alt="Your Photo" class="profile-pic-header"></a>
+        <div class="burger-menu">
+            <div class="burger-icon" tabindex="0">
+                &#9776;
+            </div>
+            <div class="dropdown">
+                <a href="projects.html" class="nav-link">Projects</a>
+                <a href="resume.html" class="nav-link">Résumé</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+        </div>
     </nav>
 </header>
 

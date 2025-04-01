@@ -16,6 +16,7 @@ header {
     position: fixed;
     width: 100%;
     z-index: 2;
+    padding-left: 20px;
 }
 
 .overlay {
@@ -28,10 +29,6 @@ header {
     backdrop-filter: blur(5px); /* Blur effect */
     z-index: 5; /* Higher than page content, lower than dropdown */
     display: none; /* Hidden by default */
-}
-
-.blurred {
-    filter: blur(5px); /* Apply a blur effect when dropdown is active */
 }
 
 
@@ -71,6 +68,7 @@ header {
     box-sizing: border-box;
     border: 20px solid transparent;
     align-content: center;
+    text-decoration: none;
 }
 
 .nav-link:hover {
@@ -86,6 +84,7 @@ header {
     background-color: #333;
     flex-direction: row;
     padding: 5px;
+    z-index: 10;
 }
 
 @media screen and (max-width: 768px) {
@@ -112,7 +111,7 @@ header {
 
     .dropdown .nav-link {
         width: 100%;
-        text-align: left;
+        text-align: center;
     }
 
     .dropdown .nav-link:hover {
@@ -121,10 +120,13 @@ header {
 
     .nav-link {
         background: #333;
-        padding: 0.5rem 0.3rem 0.5rem 0.8rem;
+        padding: 0.5rem 0.3rem 0.5rem 0.3rem;
         margin: 0.2rem;
         border: 1px solid #b78757;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        font-size: 32px;
+        font-weight: lighter;
+        text-decoration: none;
     }
 
 }
@@ -227,4 +229,55 @@ p {
     opacity: 1;
     filter: blur(0);
     transform: translateX(0);
+}
+
+/* Footer styling */
+.footer {
+    background-color: #303030; /* Dark background */
+    color: #fff; /* Light text color */
+    padding: 20px;
+    text-align: left; /* Center-align content for smaller screens */
+}
+
+/* Footer container for layout */
+.footer-container {
+    display: flex;
+    flex-direction: column; /* Default column layout (mobile-first approach) */
+    align-items: center;
+    gap: 20px; /* Space between sections */
+}
+
+/* Contact information styling */
+.footer-info p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+/* Email link styling */
+.footer-info a {
+    color: #b78757; /* Accent color */
+    text-decoration: none; /* Remove underline */
+}
+.footer-info a:hover {
+    text-decoration: underline; /* Optional hover effect */
+}
+
+/* Social media links */
+.footer-social {
+    display: flex;
+    justify-content: center; /* Center all icons horizontally */
+    gap: 15px; /* Space between icons */
+}
+
+/* Social media icons */
+.artstation-icon,
+.youtube-icon,
+.instagram-icon {
+    width: 43px;
+    height: 30px; /* Icon size */
+    transition: transform 0.3s ease; /* Animation on hover */
+}
+
+.social-link:hover .social-icon {
+    transform: scale(1.2); /* Enlarge slightly on hover */
 }
