@@ -18,37 +18,115 @@ header {
     z-index: 2;
 }
 
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+    backdrop-filter: blur(5px); /* Blur effect */
+    z-index: 5; /* Higher than page content, lower than dropdown */
+    display: none; /* Hidden by default */
+}
+
+.blurred {
+    filter: blur(5px); /* Apply a blur effect when dropdown is active */
+}
+
+
 .profile-pic-header {
     width: 60px;
     height: 60px;
     border-radius: 50%;
     border: 2px solid #b78757;
-}
-
-.nav-links {
     display: flex;
     align-items: center;
 }
 
-nav ul {
+.navbar {
+    display: flex;
+    align-items: center;
+}
+
+.burger-menu {
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+}
+
+.burger-icon {
+    display: none;
+}
+
+.nav-link {
     list-style: none;
-    padding: 0;
-}
-
-nav ul li {
-    display: inline;
-    margin: 0 20px;
-}
-
-nav ul li a {
+    display: inline-block;
+    padding: 0.5rem 20px;
+    margin: 0.2rem;
     color: white;
-    text-decoration: none;
     font-size: 18px;
-    transition: color 0.3s;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    border: 20px solid transparent;
+    align-content: center;
 }
 
-nav ul li a:hover {
-    color: gold;
+.nav-link:hover {
+    color: #b78757;
+    border: 1px solid white;
+    background-color: #222;
+    align-content: center;
+}
+
+.dropdown {
+    display: flex;
+    top: 100%;
+    background-color: #333;
+    flex-direction: row;
+    padding: 5px;
+}
+
+@media screen and (max-width: 768px) {
+    .dropdown {
+        display: none;
+        position: absolute;
+        flex-direction: column;
+        border-radius: 6px;
+        background-color: transparent;
+    }
+
+    .burger-menu {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .burger-icon {
+        font-size: 1.5rem;
+        display: flex;
+        color: white;
+        cursor: pointer;
+    }
+
+    .dropdown .nav-link {
+        width: 100%;
+        text-align: left;
+    }
+
+    .dropdown .nav-link:hover {
+        background-color: #444;
+    }
+
+    .nav-link {
+        background: #333;
+        padding: 0.5rem 0.3rem 0.5rem 0.8rem;
+        margin: 0.2rem;
+        border: 1px solid #b78757;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    }
+
 }
 
 /* Hero Section */
