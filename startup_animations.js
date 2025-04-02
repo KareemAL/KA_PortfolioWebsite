@@ -46,5 +46,24 @@ document.addEventListener("DOMContentLoaded", () => {
         delay: 3.2 // Delay in seconds
     });
 
+    // startup anims for carousel indicators and arrows
+    gsap.from(".carousel-indicators", {
+        opacity: 0,
+        y: 70,
+        duration: 1,
+        ease: "power1.inOut",
+        delay: 4.2 // Delay in seconds
+    });
+    gsap.fromTo(
+        ".carouselleft-arrow",
+        { opacity: 0, x: -70 }, // Start: completely transparent and 70px left
+        { opacity: 1, x: 0, duration: 1, ease: "power1.inOut", delay: 4 } // End: fully visible and at final position
+    );
+    gsap.fromTo(
+        ".carouselright-arrow",
+        { opacity: 0, x: 70 }, // Start: completely transparent and 70px left
+        { opacity: 1, x: 0, duration: 1, ease: "power1.inOut", delay: 4 } // End: fully visible and at final position
+    );
+
 
 });

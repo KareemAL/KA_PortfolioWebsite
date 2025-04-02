@@ -1,0 +1,103 @@
+/* Style for Carousel */
+/* Container for the entire carousel */
+.carousel {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Carousel content (slides) */
+.carouselcontent {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0; /* Initially hidden */
+    transform: translateX(100%); /* Start off-screen */
+}
+
+.carousel_image {
+    width: 100%;
+}
+
+/* Active content (visible slide) */
+.carouselcontent.carouselactive {
+    opacity: 1;
+    transform: translateX(0); /* Center it in the view */
+}
+
+
+
+/* Left and right arrows */
+.carouselarrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0.2, 0.2, 0.2, 0.9);
+    border: none;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    transition: background-color 0.3s ease, transform 0.3s ease, border 0.1s ease;
+}
+.carousel button {
+    border-radius: 40%;
+}
+.carouselarrow img {
+    width: 100%;
+    height: auto;
+    pointer-events: none;
+}
+/* Left arrow positioning */
+.carouselleft-arrow {
+    left: 20px;
+}
+/* Right arrow positioning */
+.carouselright-arrow {
+    right: 20px;
+}
+/* Arrow hover effects */
+.carouselarrow:hover {
+    background-color: rgba(1, 1, 1, 0.3);
+    border: 2px solid #b78757;
+}
+
+/* --------------------- DOT INDICATORS ---------------------- */
+/* Dots container */
+.carousel-indicators {
+    position: absolute;
+    bottom: 20px; /* Position it slightly above the bottom of the carousel */
+    left: 50%;
+    transform: translateX(-50%); /* Center it horizontally */
+    display: flex;
+    gap: 10px; /* Add space between dots */
+    z-index: 20; /* Ensure it's above the slides */
+}
+
+/* Default dot style */
+.carousel-indicators .dot {
+    width: 10px;
+    height: 10px;
+    background-color: grey;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+/* Active dot style */
+.carousel-indicators .dot.active {
+    width: 14px; /* Slightly larger */
+    height: 14px;
+    background-color: white;
+}

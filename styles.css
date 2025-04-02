@@ -180,58 +180,6 @@ header {
     width: 100%;
 }
 
-/* Style for Carousel */
-.carousel {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: relative;
-    height: 90vh;
-    width: 100%;
-    overflow: hidden;
-    background-color: #111; /* Just for visibility */
-}
-.carouselcontent {
-    position: absolute;
-    opacity: 0;
-    transition: opacity 0.5s ease, transform 0.5s ease;
-    transform: translateX(100%);
-    text-align: center;
-    font-size: 2rem;
-    width: 100%;
-}
-.carouselactive {
-    opacity: 1;
-    transform: translateX(0);
-}
-.carouselarrow {
-    position: absolute; /* Allows positioning left/right of the carousel */
-    top: 50%; /* Centers the arrow vertically */
-    transform: translateY(-50%);
-    width: 80px; /* Fixed width for uniformity */
-    height: 80px; /* Matches width for a consistent square */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 10;
-    transition: transform 0.2s, background-color 0.2s;
-    cursor: pointer;
-    color: white;
-}
-.carouselarrow:hover {
-    transform: scale(1.1);
-    background-color: rgba(0, 0, 0, 0.8);
-}
-.carouselleft-arrow {
-    left: 10px; /* Add some spacing from the edge on the left */
-}
-
-.carouselright-arrow {
-    right: 10px; /* Add some spacing from the edge on the right */
-}
-
-
 .hero_jobs {
     font-weight: lighter;
     font-size: 35px;
