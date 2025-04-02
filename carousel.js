@@ -17,6 +17,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     };
 
+    // Expose a function to get the current slide index
+    const getCurrentSlideIndex = () => currentIndex;
+
     // Helper Function to Transition Between Slides
     const goToSlide = (newIndex) => {
         if (newIndex === currentIndex) return; // Do nothing if already on the desired slide
@@ -24,7 +27,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const currentSlide = slides[currentIndex];
         const nextSlide = slides[newIndex];
 
-        // Determine direction
         let direction = newIndex > currentIndex ? 1 : -1;
 
         // Handle Wrapping (if user moves between last and first slide)
@@ -64,6 +66,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Update the current index
         currentIndex = newIndex;
+
+        setTimeout(() => {
+            updatePreviewImages();
+        }, 600)
+        // Update the carousel preview images
+
+        // Log current slide (or do something else)
+        console.log("Current slide index is:", getCurrentSlideIndex());
+    };
+
+    const updatePreviewImages = () => {
+        const currentIndex = getCurrentSlideIndex(); // Get the current slide index
+        const totalSlides = slides.length; // Total number of images in the carousel
+        const leftImg = document.querySelector("#carousel_previewimagesource_left"); // Left preview image
+        const rightImg = document.querySelector("#carousel_previewimagesource_right"); // Right preview image
+
+        // Calculate the previous and next indices
+        const prevIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+        const nextIndex = (currentIndex + 1) % totalSlides;
+
+        // Update the `src` attributes of the preview images
+        leftImg.src = `/images/hero_carousel/carousel${prevIndex}.png`;
+        console.log("Left Preview Image Index: " + prevIndex);
+        rightImg.src = `/images/hero_carousel/carousel${nextIndex}.png`;;
+        console.log("Right Preview Image Index: " + nextIndex);
     };
 
     // Go to the next or previous slide
@@ -75,9 +102,18 @@ document.addEventListener("DOMContentLoaded", () => {
         goToSlide((currentIndex - 1 + slides.length) % slides.length);
     };
 
+    const disableArrow = (arrow) => {
+        arrow.disabled = true;
+        setTimeout(() => {
+            arrow.disabled = false;
+        }, 1000); // 1000ms = 1 second
+    }
+
     // Attach click event listeners to arrows
     rightArrow.addEventListener('click', nextSlide);
+    rightArrow.addEventListener('click', disableArrow(rightArrow));
     leftArrow.addEventListener('click', prevSlide);
+    leftArrow.addEventListener('click', disableArrow(leftArrow));
 
     // Add swipe functionality for mobile
     const handleSwipe = () => {
@@ -120,4 +156,6 @@ document.addEventListener("DOMContentLoaded", () => {
             gsap.set(slide, { x: '100%', opacity: 0 }); // Hide all except the first slide
         }
     });
+
+    updatePreviewImages();
 });

@@ -54,6 +54,12 @@
 .carousel button {
     border-radius: 40%;
 }
+@media screen and (max-width: 768px) {
+    .carousel button {
+        display: none;
+    }
+}
+
 .carouselarrow img {
     width: 100%;
     height: auto;
@@ -72,6 +78,16 @@
     background-color: rgba(1, 1, 1, 0.3);
     border: 2px solid #b78757;
 }
+
+/* --- Right and Left Arrow-Previews --- */
+.carousel_previewimg {
+    display: flex;
+    position: absolute;
+    z-index: 1;
+    transform-origin: top left; /* Ensures scaling is consistent */
+    transform: scale(1); /* Default to no scaling */
+}
+
 
 /* --------------------- DOT INDICATORS ---------------------- */
 /* Dots container */
