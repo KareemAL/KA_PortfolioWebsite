@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.7/gsap.min.js" integrity="sha512-f6bQMg6nkSRw/xfHw5BCbISe/dJjXrVGfz9BSDwhZtiErHwk7ifbmBEtF9vFW8UNIQPhV2uEFVyI/UHob9r7Cw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script defer src="script.js"></script>
+    <script src="carousel.js"></script>
     <script defer src="startup_animations.js"></script>
 </head>
 <body>
@@ -32,24 +33,58 @@
     </header>
 
     <section id="section1" class="hero snap-section">
-        <div class="container">
-            <img src="images/Kareem_Al-khalily_Protrait_2025.jpg" alt="Your Photo" class="profile-pic">
-            <div class="text">
-                <h1>Kareem Al-Khalily</h1>
-                <div class="hero_jobs">
-                    <span>3D -Artist</span>
-                    <span class="separator">|</span>
-                    <span>Designer</span>
-                    <span class="separator">|</span>
-                    <span>Developer</span>
+            <div class="carousel">
+                <button class="carouselarrow carouselleft-arrow"><img src="images/homebutton_image.png" alt="CarouselPrevious"></button>
+                <div id="carouselcontent1" class="carouselcontent carouselactive">
+                    <img src="images/Kareem_Al-khalily_Protrait_2025.jpg" alt="Your Photo" class="profile-pic">
+                    <div class="text">
+                        <h1>Kareem Al-Khalily</h1>
+                        <div class="hero_jobs">
+                            <span>3D -Artist</span>
+                            <span class="separator">|</span>
+                            <span>Designer</span>
+                            <span class="separator">|</span>
+                            <span>Developer</span>
+                        </div>
+                        <p>Welcome to my portfolio. I create art and renderings, develop in frontend webdev and make games</p>
+                    </div>
                 </div>
-                <p>Welcome to my portfolio. I create art and renderings, develop in frontend webdev and make games</p>
+                <div id="carouselcontent2" class="carouselcontent">
+                    <a>Placeholder1</a>
+                </div>
+                <div id="carouselcontent3" class="carouselcontent">
+                    <a>Placeholder2</a>
+                </div>
+                <div id="carouselcontent4" class="carouselcontent">
+                    <a>Placeholder3</a>
+                </div>
+                <div id="carouselcontent5" class="carouselcontent">
+                    <a>Placeholder4</a>
+                </div>
+                <div id="carouselcontent6" class="carouselcontent">
+                    <a>Placeholder5</a>
+                </div>
+                <button class="carouselarrow carouselright-arrow"><img src="images/homebutton_image.png" alt="CarouselNext"></button>
             </div>
-        </div>
     </section>
 
+    <!--
+                    <img src="images/Kareem_Al-khalily_Protrait_2025.jpg" alt="Your Photo" class="profile-pic">
+                    <div class="text">
+                        <h1>Kareem Al-Khalily</h1>
+                        <div class="hero_jobs">
+                            <span>3D -Artist</span>
+                            <span class="separator">|</span>
+                            <span>Designer</span>
+                            <span class="separator">|</span>
+                            <span>Developer</span>
+                        </div>
+                        <p>Welcome to my portfolio. I create art and renderings, develop in frontend webdev and make games</p>
+                    </div>
+    -->
+
     <section id="section2" class="hero_separator snap-section">
-        <div class="container">
+        <div class="container_centered">
             <div class="line"></div>
             <h3>Hero Separator</h3>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.</p>
@@ -59,7 +94,7 @@
 
 
     <section class="lower_item_section non-snap-section">
-        <div class="container">
+        <div class="container_centered">
             <h2>About Me</h2>
             <img src="images/sand_image.png" alt="About Photo" class="lower_item_section_img">
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae. </p>
@@ -70,7 +105,7 @@
     </section>
 
     <section class="lower_item_section non-snap-section">
-        <div class="container">
+        <div class="container_centered">
             <h2>Skills</h2>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae. </p>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae. </p>
