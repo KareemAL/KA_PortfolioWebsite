@@ -68,43 +68,43 @@ document.addEventListener('DOMContentLoaded', () => {
 // Select all the snapping sections
 const sections = document.querySelectorAll(".snap-section");
 
-// Track the last scroll position to calculate scroll direction
+// Track the last scroll position
 let lastScrollY = window.scrollY;
-const scrollThreshold = 20; // Set a threshold to reduce sensitivity (in pixels).
+const scrollThreshold = 10; // Threshold to minimize sensitivity
 
 window.addEventListener("scroll", () => {
     const currentScrollY = window.scrollY;
     const viewportHeight = window.innerHeight;
 
-    // Calculate the scroll delta (absolute scroll distance)
-    const scrollDelta = Math.abs(currentScrollY - lastScrollY);
+    // Calculate the scroll delta
+    const scrollDelta = currentScrollY - lastScrollY;
 
-    // Ignore minor scroll movements (less than the threshold)
-    if (scrollDelta < scrollThreshold) {
-        return; // Exit early if the movement is too small
+    // Ignore minor scroll movements less than the threshold
+    if (Math.abs(scrollDelta) < scrollThreshold) {
+        return; // Exit early for minor movements
     }
 
-    // Determine scroll direction (only significant scrolls trigger)
-    const scrollingDown = currentScrollY > lastScrollY;
-    const scrollingUp = currentScrollY < lastScrollY;
+    // Detect the scroll direction
+    const scrollingDown = scrollDelta > 0;
+    const scrollingUp = scrollDelta < 0;
 
     sections.forEach((section, index) => {
         // Get section's top position relative to the viewport
         const sectionTop = section.getBoundingClientRect().top;
 
-        // Check if within the snapping range (30% of viewport height)
+        // Check if the section is within snapping range (30% of viewport height)
         if (Math.abs(sectionTop) < viewportHeight * 0.3) {
             if (scrollingDown && index < sections.length - 1) {
-                // Snap DOWN to next section
+                // Snap DOWN to the next section
                 section.nextElementSibling.scrollIntoView({ behavior: "smooth" });
             } else if (scrollingUp && index > 0) {
-                // Snap UP to previous section
+                // Snap UP to the previous section
                 section.previousElementSibling.scrollIntoView({ behavior: "smooth" });
             }
         }
     });
 
-    // Update the last scroll position
+    // Update the last scroll position (only after a valid scroll)
     lastScrollY = currentScrollY;
 });
 
