@@ -24,7 +24,12 @@
 }
 
 .carousel_image {
-    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; /* Start with full width */
+    height: 100%; /* Start with full height */
+    object-fit: cover; /* Scale to cover the container while maintaining aspect ratio */
 }
 
 /* Active content (visible slide) */
@@ -86,6 +91,33 @@
     z-index: 1;
     transform-origin: top left; /* Ensures scaling is consistent */
     transform: scale(1); /* Default to no scaling */
+}
+@media screen and (max-width: 768px) {
+    .carousel_previewimg {
+        display: none;
+    }
+}
+
+.carousel_previewimg_mask {
+    display: flex;      /* TESTING*/
+    position: absolute;
+    z-index: 2;
+    transform: scale(1); /* Default to no scaling */
+}
+@media screen and (max-width: 768px) {
+    .carousel_previewimg_mask {
+        display: none;
+    }
+}
+
+#carousel_previewimg_left_mask {
+    transform-origin: center right;
+    left: -1750px;
+}
+
+#carousel_previewimg_right_mask {
+    transform-origin: center left;
+    right: -1750px;
 }
 
 
