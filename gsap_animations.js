@@ -71,9 +71,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const leftImg = document.querySelector("#carousel_previewimg_left");    // Left preview image
     const rightImg = document.querySelector("#carousel_previewimg_right");  // Right preview image
 
-    const leftMask = document.querySelector("#carousel_previewimg_left_mask");      // Left preview image Mask
-    const rightMask = document.querySelector("#carousel_previewimg_right_mask");    // Right preview image Mask
-
 // Get arrow elements
     const leftArrow = document.querySelector(".carouselleft-arrow");
     const rightArrow = document.querySelector(".carouselright-arrow");
@@ -90,66 +87,52 @@ document.addEventListener("DOMContentLoaded", () => {
             { x: `-70%`, opacity: 0.3, duration: 1, ease: "power2.inOut"} // Slide into position
         )
         .fromTo(
-            leftMask,
-            {x: `-100%`, opacity: 0 },                                                  // Start fully off-screen --- Left Mask
-            { x: 0, opacity: 0.3, duration: 1, ease: "power2.inOut"}, // Slide into position
-            '<' // Parallel animation
-        )
-        .fromTo(
             rightImg,
             { x: `120%`, opacity: 0 }, // Start fully off-screen
             { x: `70%`, opacity: 0.3, duration: 1, ease: "power2.inOut"},
             '<' // Parallel animation
         )
-        .fromTo(
-            rightMask,
-            { x: `100%`, opacity: 0 }, // Start fully off-screen
-            { x: 0, opacity: 0.3, duration: 1, ease: "power2.inOut"},
-            '<' // Parallel animation
-        );
 
 // Reusable GSAP hover functions
-    const hoverAnimationIn = (element, mask, direction) => {
-        gsap.killTweensOf(element, mask);
+    const hoverAnimationIn = (element, direction) => {
+        gsap.killTweensOf(element);
         gsap.to(element, {
-            x: direction === "left" ? '-65%' : '65%', // Slightly move IMAGE on hover
-            opacity: 1,
+            x: direction === "left" ? '-65%' : '65%',       // Image movement
             duration: 0.3,
-            ease: "power1.out"
+            ease: "power1.out",
+            opacity: 1,
         });
-        gsap.to(mask, {
-            x: direction === "left" ? '25%' : '-25%', // Slightly move MASK on hover
-            opacity: 1,
-            duration: 0.3,
-            ease: "power1.out"
+        gsap.to(element, {                                  // Mask movement - first if-check determines which mask is affected. Second if-check determines in what direction
+            css: {
+                [direction === "left" ? "--previewMask_left_X" : "--previewMask_right_X"]: direction === "left" ? '-1000%' : '1000%'
+            }
         });
     };
 
-    const hoverAnimationOut = (element, mask, direction) => {
-        gsap.killTweensOf(element, mask);
+    const hoverAnimationOut = (element, direction) => {
+        gsap.killTweensOf(element);
         gsap.to(element, {
-            x: direction === "left" ? '-70%' : '70%',   // Return to original position
+            x: direction === "left" ? '-70%' : '70%',       // Return to original position
             opacity: 0.3,
             duration: 0.3,
-            ease: "power1.out"
+            ease: "power1.out",
         });
-        gsap.to(mask, {
-            x: direction === "left" ? 0 : 0,            // Return MASK to original position
-            opacity: 1,
-            duration: 0.3,
-            ease: "power1.out"
-        });
+        gsap.to(element, {                                  // Mask movement - first if-check determines which mask is affected. Second if-check determines in what direction
+            css: {
+                [direction === "left" ? "--previewMask_left_X" : "--previewMask_right_X"]: direction === "left" ? '-0%' : '0%'
+            }
+        }, '<');
     };
 
 // Slide aside on Arrow Click
-    const clickAnimation = (element, nonElement, mask, direction, leftArrow, rightArrow, isHoveringCallback) => {
+    const clickAnimation = (element, nonElement, direction, leftArrow, rightArrow, isHoveringCallback) => {
 
         // Disable the arrow buttons
         leftArrow.disabled = true;
         rightArrow.disabled = true;
 
         // Kill any active tweens on the element
-        gsap.killTweensOf(element, mask);
+        gsap.killTweensOf(element);
 
         // CLICK ANIMATION OF CLICKED SIDE
         gsap.to(element, {                              // Slide to center
@@ -158,19 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
             duration: 0.5,
             ease: "power1.out"
         });
-        gsap.to(mask, {
-            x: direction === "left" ? '90%' : '-90%',
-            opacity: 1,
-            duration: 0.5,
-            ease: "power1.out"
-        });
         gsap.to(element, {                              //Fade out for smoother Transition
-            opacity: 0,
-            duration: 0.3,
-            ease: "power1.out",
-            delay: 0.3
-        });
-        gsap.to(mask, {
             opacity: 0,
             duration: 0.3,
             ease: "power1.out",
@@ -183,22 +154,8 @@ document.addEventListener("DOMContentLoaded", () => {
             ease: "power1.out",
             delay: 0.6
         });
-        gsap.to(mask, {                              // Instantly snap back - fully out-of screen
-            x: direction === "left" ? '-100%' : '100%',
-            opacity: 0,
-            duration: 0,
-            ease: "power1.out",
-            delay: 0.6
-        });
         gsap.to(element, {                              // Slide back into default position
             x: direction === "left" ? '-70%' : '70%',
-            opacity: 0.3,
-            duration: 1,
-            ease: "power1.out",
-            delay: 0.6
-        });
-        gsap.to(mask, {                              // Slide back into default position
-            x: direction === "left" ? 0 : 0,
             opacity: 0.3,
             duration: 1,
             ease: "power1.out",
@@ -224,7 +181,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Check if the mouse is still hovering and trigger hoverAnimationIn
             if (isHoveringCallback()) {
-                hoverAnimationIn(element, mask, direction);
+                hoverAnimationIn(element, direction);
             }
         }, 1000); // Match the total animation duration (1 second)
     };
@@ -232,24 +189,24 @@ document.addEventListener("DOMContentLoaded", () => {
 // Assign hover events to arrows instead of the images
     leftArrow.addEventListener("mouseenter", () => {
         isHoveringLeft = true; // User started hovering
-        hoverAnimationIn(leftImg, leftMask, "left");
+        hoverAnimationIn(leftImg, "left");
     });
     leftArrow.addEventListener("mouseleave", () => {
         isHoveringLeft = false; // User stopped hovering
-        hoverAnimationOut(leftImg, leftMask, "left");
+        hoverAnimationOut(leftImg, "left");
     });
 
     rightArrow.addEventListener("mouseenter", () => {
         isHoveringRight = true; // User started hovering
-        hoverAnimationIn(rightImg, rightMask, "right");
+        hoverAnimationIn(rightImg, "right");
     });
     rightArrow.addEventListener("mouseleave", () => {
         isHoveringRight = false; // User stopped hovering
-        hoverAnimationOut(rightImg, rightMask, "right");
+        hoverAnimationOut(rightImg, "right");
     });
 
 // Event listener for arrow buttons
-    leftArrow.addEventListener("click", () => clickAnimation(leftImg, rightImg, leftMask, "left", leftArrow, rightArrow, () => isHoveringLeft));
-    rightArrow.addEventListener("click", () => clickAnimation(rightImg, leftImg, rightMask, "right", leftArrow, rightArrow, () => isHoveringRight));
+    leftArrow.addEventListener("click", () => clickAnimation(leftImg, rightImg, "left", leftArrow, rightArrow, () => isHoveringLeft));
+    rightArrow.addEventListener("click", () => clickAnimation(rightImg, leftImg, "right", leftArrow, rightArrow, () => isHoveringRight));
 
 });

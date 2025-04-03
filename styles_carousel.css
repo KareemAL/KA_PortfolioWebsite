@@ -110,14 +110,32 @@
     }
 }
 
-#carousel_previewimg_left_mask {
-    transform-origin: center right;
-    left: -1750px;
+#carousel_previewimg_left {
+    --previewMask_left_X: 0%; /* Default horizontal position */
+    --previewMask_left_Y: 0%; /* Default vertical position */
+
+    mask-image: url("images/hero_carousel/carousel_prevmask_left.png");
+    mask-size: cover;
+    mask-repeat: no-repeat;
+    mask-position: var(--previewMask_left_X) var(--previewMask_left_Y);         /* Use variable, so it can be animated in GSAP */
+    -webkit-mask-image: url("images/hero_carousel/carousel_prevmask_left.png"); /* Safari support */
+    -webkit-mask-size: cover;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: var(--previewMask_left_X) var(--previewMask_left_Y);
 }
 
-#carousel_previewimg_right_mask {
-    transform-origin: center left;
-    right: -1750px;
+#carousel_previewimg_right {
+    --previewMask_right_X: 0%; /* Default horizontal position */
+    --previewMask_right_Y: 0%; /* Default vertical position */
+
+    mask-image: url("images/hero_carousel/carousel_prevmask_right.png");
+    mask-size: cover;
+    mask-repeat: no-repeat;
+    mask-position: var(--previewMask_right_X) var(--previewMask_right_Y);
+    -webkit-mask-image: url("images/hero_carousel/carousel_prevmask_right.png");
+    -webkit-mask-size: cover;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: var(--previewMask_right_X) var(--previewMask_right_Y);
 }
 
 
