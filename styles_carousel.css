@@ -91,7 +91,7 @@
 }
 
 /* --- Right and Left Arrow-Previews --- */
-.carousel_previewimg {
+.carousel_previewimg{
     display: flex;
     position: absolute;
     z-index: 1;
@@ -99,22 +99,31 @@
     transform: scale(1); /* Default to no scaling */
 }
 @media screen and (max-width: 768px) {
-    .carousel_previewimg {
+    .carousel_previewimg{
         display: none;
     }
 }
-
-.carousel_previewimg_mask {
-    display: flex;      /* TESTING*/
+.carousel_previewoutline{
+    display: flex;
     position: absolute;
     z-index: 2;
+    /* transform-origin: top left; /* Ensures scaling is consistent */
     transform: scale(1); /* Default to no scaling */
 }
 @media screen and (max-width: 768px) {
-    .carousel_previewimg_mask {
+    .carousel_previewoutline{
         display: none;
     }
 }
+#carousel_previewOutline_left {
+    transform-origin: center right;
+    left: -1295px;
+}
+#carousel_previewOutline_right {
+    transform-origin: center right;
+    right: -1300px;
+}
+
 
 #carousel_previewimg_left {
     --previewMask_left_X: -500px; /* Default horizontal position */
