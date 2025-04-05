@@ -48,8 +48,8 @@
     background-color: rgba(0.2, 0.2, 0.2, 0.9);
     border: none;
     cursor: pointer;
-    width: 50px;
-    height: 50px;
+    width: 7vh;
+    height: 7vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -62,6 +62,12 @@
 @media screen and (max-width: 768px) {
     .carousel button {
         display: none;
+    }
+}
+@media screen and (max-height: 800px) {
+    .carouselarrow {
+        width: 56px;
+        height: 56px;
     }
 }
 
@@ -89,7 +95,7 @@
     display: flex;
     position: absolute;
     z-index: 1;
-    transform-origin: top left; /* Ensures scaling is consistent */
+    /* transform-origin: top left; /* Ensures scaling is consistent */
     transform: scale(1); /* Default to no scaling */
 }
 @media screen and (max-width: 768px) {
@@ -111,9 +117,11 @@
 }
 
 #carousel_previewimg_left {
-    --previewMask_left_X: 0%; /* Default horizontal position */
+    --previewMask_left_X: -500px; /* Default horizontal position */
     --previewMask_left_Y: 0%; /* Default vertical position */
 
+    transform-origin: center right;
+    left: -1250px;
     mask-image: url("images/hero_carousel/carousel_prevmask_left.png");
     mask-size: cover;
     mask-repeat: no-repeat;
@@ -125,9 +133,11 @@
 }
 
 #carousel_previewimg_right {
-    --previewMask_right_X: 0%; /* Default horizontal position */
+    --previewMask_right_X: 500px; /* Default horizontal position */
     --previewMask_right_Y: 0%; /* Default vertical position */
 
+    transform-origin: center left;
+    right: -1250px;
     mask-image: url("images/hero_carousel/carousel_prevmask_right.png");
     mask-size: cover;
     mask-repeat: no-repeat;

@@ -83,13 +83,13 @@ document.addEventListener("DOMContentLoaded", () => {
     gsap.timeline({ delay: 4.5})
         .fromTo(
             leftImg, // The target element
-            { x: `-120%`, opacity: 0 },                                                 // Start fully off-screen --- Left Image
-            { x: `-70%`, opacity: 0.3, duration: 1, ease: "power2.inOut"} // Slide into position
+            { x: -400, opacity: 0 },                                                 // Start fully off-screen --- Left Image
+            { x: 0, opacity: 0.3, duration: 1, ease: "power2.inOut"} // Slide into resting position
         )
         .fromTo(
             rightImg,
-            { x: `120%`, opacity: 0 }, // Start fully off-screen
-            { x: `70%`, opacity: 0.3, duration: 1, ease: "power2.inOut"},
+            { x: 400, opacity: 0 },
+            { x: 0, opacity: 0.3, duration: 1, ease: "power2.inOut"},
             '<' // Parallel animation
         )
 
@@ -97,14 +97,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const hoverAnimationIn = (element, direction) => {
         gsap.killTweensOf(element);
         gsap.to(element, {
-            x: direction === "left" ? '-65%' : '65%',       // Image movement
+            x: direction === "left" ? 50 : -50,       // Image movement
             duration: 0.3,
             ease: "power1.out",
             opacity: 1,
         });
         gsap.to(element, {                                  // Mask movement - first if-check determines which mask is affected. Second if-check determines in what direction
             css: {
-                [direction === "left" ? "--previewMask_left_X" : "--previewMask_right_X"]: direction === "left" ? '-1000%' : '1000%'
+                [direction === "left" ? "--previewMask_left_X" : "--previewMask_right_X"]: direction === "left" ? -300 : 300
             }
         });
     };
@@ -112,16 +112,22 @@ document.addEventListener("DOMContentLoaded", () => {
     const hoverAnimationOut = (element, direction) => {
         gsap.killTweensOf(element);
         gsap.to(element, {
-            x: direction === "left" ? '-70%' : '70%',       // Return to original position
-            opacity: 0.3,
+            x: direction === "left" ? 0 : 0,       // Return to resting position
+            opacity: 0,
             duration: 0.3,
             ease: "power1.out",
         });
         gsap.to(element, {                                  // Mask movement - first if-check determines which mask is affected. Second if-check determines in what direction
             css: {
-                [direction === "left" ? "--previewMask_left_X" : "--previewMask_right_X"]: direction === "left" ? '-0%' : '0%'
+                [direction === "left" ? "--previewMask_left_X" : "--previewMask_right_X"]: direction === "left" ? -500 : 500
             }
         }, '<');
+        gsap.to(element, {
+            opacity: 0.3,
+            duration: 0.7,
+            ease: "power1.inOut",
+            delay: 0.7
+        });
     };
 
 // Slide aside on Arrow Click
@@ -135,12 +141,17 @@ document.addEventListener("DOMContentLoaded", () => {
         gsap.killTweensOf(element);
 
         // CLICK ANIMATION OF CLICKED SIDE
-        gsap.to(element, {                              // Slide to center
-            x: direction === "left" ? '0%' : '0%',
+        gsap.to(element, {                              // Slide Image itself to center
+            x: direction === "left" ? 800 : -800,
             opacity: 1,
             duration: 0.5,
             ease: "power1.out"
         });
+        gsap.to(element, {                              // Slide Mask out of center (parallax effect)
+            css: {
+                [direction === "left" ? "--previewMask_left_X" : "--previewMask_right_X"]: direction === "left" ? -1200 : 1200
+            }
+        }, '<');
         gsap.to(element, {                              //Fade out for smoother Transition
             opacity: 0,
             duration: 0.3,
@@ -148,14 +159,14 @@ document.addEventListener("DOMContentLoaded", () => {
             delay: 0.3
         });
         gsap.to(element, {                              // Instantly snap back - fully out-of screen
-            x: direction === "left" ? '-120%' : '120%',
+            x: direction === "left" ? -400 : 400,
             opacity: 0,
             duration: 0,
             ease: "power1.out",
             delay: 0.6
         });
         gsap.to(element, {                              // Slide back into default position
-            x: direction === "left" ? '-70%' : '70%',
+            x: direction === "left" ? 0 : 0,
             opacity: 0.3,
             duration: 1,
             ease: "power1.out",
@@ -208,5 +219,6 @@ document.addEventListener("DOMContentLoaded", () => {
 // Event listener for arrow buttons
     leftArrow.addEventListener("click", () => clickAnimation(leftImg, rightImg, "left", leftArrow, rightArrow, () => isHoveringLeft));
     rightArrow.addEventListener("click", () => clickAnimation(rightImg, leftImg, "right", leftArrow, rightArrow, () => isHoveringRight));
+
 
 });
