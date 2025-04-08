@@ -178,6 +178,7 @@
     border-radius: 50%;
     transition: all 0.3s ease;
     cursor: pointer;
+    z-index: 20; /* Ensure it's above the slides */
 }
 
 /* Active dot style */
@@ -185,4 +186,22 @@
     width: 14px; /* Slightly larger */
     height: 14px;
     background-color: white;
+}
+
+
+/* --------------------- DOT INDICATORS BG ---------------------- */
+.dots-wrapper {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    padding: 20px 70px;
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    position: absolute; /* or relative depending on context */
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
 }

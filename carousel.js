@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const leftArrow = document.querySelector('.carouselleft-arrow'); // Left arrow
     const rightArrow = document.querySelector('.carouselright-arrow'); // Right arrow
     const indicatorsContainer = document.querySelector('.carousel-indicators'); // Dots container
+    const indicatorsWrapperContainer = document.querySelector('.carousel-indicators'); // Dots wrapper container
 
     let currentIndex = 0; // Track the index of the currently active slide
     let startX = 0; // Starting position for touch
@@ -135,6 +136,11 @@ document.addEventListener("DOMContentLoaded", () => {
     carousel.addEventListener('touchend', (e) => {
         handleSwipe(); // Check swipe direction on touch end
     });
+
+    // Create the container with dark background
+    const dotsWrapper = document.createElement('div');
+    dotsWrapper.classList.add('dots-wrapper');
+    indicatorsWrapperContainer.appendChild(dotsWrapper); // Append it to wherever your carousel controls are
 
     // Dynamically create dots for indicators
     slides.forEach((_, index) => {
