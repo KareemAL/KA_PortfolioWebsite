@@ -88,9 +88,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const nextIndex = (currentIndex + 1) % totalSlides;
 
         // Update the `src` attributes of the preview images
-        leftImg.src = `/images/hero_carousel/carousel${prevIndex}.png`;
+        leftImg.src = `./images/hero_carousel/carousel${prevIndex}.png`;
         console.log("Left Preview Image Index: " + prevIndex);
-        rightImg.src = `/images/hero_carousel/carousel${nextIndex}.png`;;
+        rightImg.src = `./images/hero_carousel/carousel${nextIndex}.png`;;
         console.log("Right Preview Image Index: " + nextIndex);
     };
 
