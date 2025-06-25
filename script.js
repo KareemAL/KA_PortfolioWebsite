@@ -21,46 +21,132 @@ hiddenElements.forEach(element => {
 
 
 
-// LOGIC FOR MOBILE BURGER MENU
-document.addEventListener('DOMContentLoaded', () => {
-    const burgerIcon = document.querySelector('.burger-icon');
-    const dropdown = document.querySelector('.dropdown');
-    const overlay = document.querySelector('.overlay');
-    const mainContent = document.querySelector('.main-content');
+// LOGIC FOR NAVBAR DROPDOWN MENUS
+document.addEventListener("DOMContentLoaded", () => {
+    const contentMapping = {
+        "Projects": {
+            "3D Projects": [
+                { name: "Project 1A", href: "project1a.html" },
+                { name: "Project 1B", href: "project1b.html" }
+            ],
+            "3D Webviewer": [
+                { name: "Try out Webviewer", href: "project1a.html" }
+            ],
+            "Web": [
+                { name: "Portfolio Website", href: "project2a.html" },
+                { name: "Project 2B", href: "project2b.html" }
+            ],
+            "Gamedev": [
+                { name: "Let it Cook", href: "project3a.html" },
+                { name: "Wizarchitect", href: "project3b.html" },
+                { name: "Interstellum", href: "project3c.html" },
+                { name: "Duskeep", href: "project3c.html" }
+            ],
+        },
+        "Résumé": {
+            "Résumé": [
+                { name: "Education and Employment", href: "resume1.html" }
+            ],
+            "Portfolio": [
+                { name: "PDF", href: "resumeA1.html" },
+                { name: "Other Work", href: "resumeB1.html" }
+            ]
+        },
+        "Contact": {
+            "Contact Info": [
+                { name: "Contact Info", href: "contact1.html" },
+            ],
+            "Socials": [
+                { name: "YouTube", href: "contactA1.html" },
+                { name: "Instagram", href: "contactB1.html" },
+                { name: "ArtStation", href: "contactB1.html" },
+                { name: "Twitter", href: "contactB1.html" },
+                { name: "BlueSky", href: "contactB1.html" }
+            ]
+        },
+    };
 
-
-    // Toggle dropdown on burger icon click (Mobile behavior)
-    burgerIcon?.addEventListener('click', () => {
-        if (window.innerWidth <= 768) { // Apply behavior only on mobile
-            dropdown.style.display = dropdown.style.display === 'flex' ? 'none' : 'flex';
-            overlay.style.display = overlay.style.display === 'block' ? 'none' : 'block';
+    // Common Utility Functions
+    const populateColumn = (columnElement, items, clickHandler = null) => {
+        columnElement.innerHTML = items
+            .map(item => `<div class="dropdown-item">${typeof item === 'string' ? item : item.name}</div>`)
+            .join("");
+        if (clickHandler) {
+            const columns = columnElement.querySelectorAll(".dropdown-item");
+            columns.forEach(item => item.addEventListener("click", () => clickHandler(item.textContent)));
         }
-    });
+    };
 
-    // Close dropdown if clicking outside of it (Mobile behavior)
-    document.addEventListener('click', (event) => {
-        if (window.innerWidth <= 768) { // Apply behavior only on mobile
-            if (!burgerIcon.contains(event.target) && !dropdown.contains(event.target)) {
-                dropdown.style.display = 'none';
-                overlay.style.display = 'none';
+    const populateLinks = (columnElement, subcategories) => {
+        columnElement.innerHTML = subcategories
+            .map(link => `<a href="${link.href}" class="dropdown-item">${link.name}</a>`)
+            .join("");
+    };
+
+    // Desktop Dropdown Logic
+    const navItems = document.querySelectorAll(".nav-item");
+    navItems.forEach(item => {
+        const dropdown = item.querySelector(".dropdown");
+        const categories = item.querySelectorAll(".categories .dropdown-item");
+        const contentColumn = item.querySelector(":scope .dropdown-column:nth-child(2)");
+        const navText = item.querySelector(".nav-link").textContent.trim();
+
+        // Handle Desktop Dropdown Show/Hide
+        item.addEventListener("mouseenter", () => {
+            dropdown.style.display = "flex";
+            if (categories.length > 0) {
+                const firstCategory = categories[0];
+                setActiveCategory(categories, firstCategory);
+                populateLinks(contentColumn, contentMapping[navText][firstCategory.textContent]);
             }
-        }
+        });
+
+
+        item.addEventListener("mouseleave", () => {
+            dropdown.style.display = "none";
+            setActiveCategory(categories, null);
+        });
+
+        // Handle Category Click
+        categories.forEach(category => {
+            category.addEventListener("click", e => {
+                e.preventDefault();
+                setActiveCategory(categories, category);
+                const categoryText = category.textContent;
+                populateLinks(contentColumn, contentMapping[navText][categoryText]);
+            });
+        });
     });
 
 
-// Resize event listener to reset dropdown display and blur overlay based on viewport width
-    window.addEventListener('resize', () => {
-        if (window.innerWidth > 768) {
-            // On desktop, ensure dropdown is visible
-            dropdown.style.display = 'flex';
-            overlay.style.display = 'none';
-        } else {
-            // On mobile, hide dropdown by default
-            dropdown.style.display = 'none';
-            overlay.style.display = 'none';
-        }
+    const setActiveCategory = (categories, activeCategory) => {
+        categories.forEach(category => category.classList.remove("active-category"));
+        if (activeCategory) activeCategory.classList.add("active-category");
+    };
+
+    // Mobile Dropdown Logic
+    const burgerIcon = document.querySelector(".burger-icon");
+    const dropdownMobile = document.querySelector(".dropdown-mobile");
+    const navColumn = dropdownMobile.querySelector(".nav-items");
+    const categoryColumn = dropdownMobile.querySelector(".categories");
+    const subcategoryColumn = dropdownMobile.querySelector(".subcategories");
+
+    burgerIcon.addEventListener("click", () => {
+        dropdownMobile.classList.toggle("active");
+
+        populateColumn(navColumn, Object.keys(contentMapping), navItemText => {
+            populateColumn(categoryColumn, Object.keys(contentMapping[navItemText]), categoryText => {
+                populateLinks(subcategoryColumn, contentMapping[navItemText][categoryText]);
+            });
+            subcategoryColumn.innerHTML = ""; // Clear subcategories when a new nav item is clicked
+        });
+
+        categoryColumn.innerHTML = ""; // Clear categories when the menu is toggled
+        subcategoryColumn.innerHTML = ""; // Clear subcategories when the menu is toggled
     });
 });
+
+
 
 
 

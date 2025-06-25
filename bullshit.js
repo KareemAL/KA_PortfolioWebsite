@@ -48,3 +48,46 @@ gsap.to(nonElement, {                            //Fade it back in once image ha
     ease: "power1.inOut",
     delay: 0.6
 });
+
+const contentMapping = {
+    "Projects": {
+        "3D Projects": [
+            { name: "Project 1A", href: "project1a.html" },
+            { name: "Project 1B", href: "project1b.html" }
+        ],
+        "3D Webviewer": [
+            { name: "Try out Webviewer", href: "project1a.html" }
+        ],
+        "Web": [
+            { name: "Portfolio Website", href: "project2a.html" },
+            { name: "Project 2B", href: "project2b.html" }
+        ],
+        "Gamedev": [
+            { name: "Let it Cook", href: "project3a.html" },
+            { name: "Wizarchitect", href: "project3b.html" },
+            { name: "Interstellum", href: "project3c.html" },
+            { name: "Duskeep", href: "project3c.html" }
+        ],
+    },
+    "Résumé": {
+        "Résumé": [
+            { name: "Education and Employment", href: "resume1.html" }
+        ],
+        "Portfolio": [
+            { name: "PDF", href: "resumeA1.html" },
+            { name: "Other Work", href: "resumeB1.html" }
+        ]
+    },
+    "Contact": {
+        "Contact Info": [
+            { name: "Contact Info", href: "contact1.html" },
+        ],
+        "Socials": [
+            { name: "YouTube", href: "contactA1.html" },
+            { name: "Instagram", href: "contactB1.html" },
+            { name: "ArtStation", href: "contactB1.html" },
+            { name: "Twitter", href: "contactB1.html" },
+            { name: "BlueSky", href: "contactB1.html" }
+        ]
+    },
+};

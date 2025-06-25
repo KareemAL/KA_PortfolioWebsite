@@ -94,17 +94,28 @@ header {
 
 .nav-link {
     list-style: none;
-    display: inline-block;
-    padding: 0.5rem 20px;
+    display: flex; /* Change to flex for better alignment */
+    align-items: center; /* Center content vertically within the container */
+    justify-content: center; /* Optionally center horizontally (if required) */
+    padding: 0.5rem 20px; /* Ensure consistent paddings */
     margin: 0.2rem;
     color: white;
     font-size: 18px;
     border-radius: 4px;
     transition: all 0.3s ease;
     box-sizing: border-box;
-    border: 20px solid transparent;
+    border: 7px solid transparent;
     align-content: center;
     text-decoration: none;
+    height: 100%; /* Ensure it stretches vertically */
+}
+
+.nav-item {
+    position: relative;
+}
+
+.nav-item:hover .dropdown {
+    display: flex; /* Show dropdown on hover */
 }
 
 .nav-link:hover {
@@ -115,55 +126,146 @@ header {
 }
 
 .dropdown {
-    display: flex;
-    top: 100%;
-    background-color: #333;
+    display: none;
+    position: absolute;
+    left: 0;
+    top: calc(100% + 3px); /* Dropdown lower by 5px from its default top */
+    background-color: rgba(10, 10, 10, 0.7);
+    color: #fff;
     flex-direction: row;
-    padding: 5px;
+    padding: 10px;
     z-index: 10;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+.dropdown-column {
+    margin: 0;
+    padding: 0 10px; /* Add some padding inside the columns */
 }
 
-@media screen and (max-width: 768px) {
-    .dropdown {
-        display: none;
-        position: absolute;
-        flex-direction: column;
-        border-radius: 6px;
-        background-color: transparent;
-        right: -20px;
+.dropdown-column:not(:last-child) {
+    border-right: 1px solid white; /* Thin white vertical line */
+}
+
+.dropdown-column.categories {
+    display: flex;
+    flex-direction: column; /* Ensure rows are stacked vertically */
+    gap: 10px; /* Add 10px of space between rows */
+}
+
+.dropdown-item {
+    display: block;
+    padding: 8px 12px;
+    color: white;
+    text-decoration: none;
+    white-space: nowrap;
+    margin: 5px 0; /* Add some margin for extra spacing */
+}
+.dropdown-item:hover {
+    color: #111;
+    background-color: #b78757;
+    border-radius: 2px;
+}
+
+/* Add a class for highlighting the active column1-category */
+.active-category {
+    color: #fff;
+    background-color: rgba(183, 135, 87, 0.5);
+    border-radius: 2px;
+}
+
+/* Desktop Specific (gets rid of Dropdown Menu being displayed, when it shouldnt be) */
+@media screen and (min-width: 769px) {
+    .nav-links {
+        display: flex;
     }
 
     .burger-menu {
-        position: absolute;
-        right: 10%;
+        display: none;
+    }
+}
+
+
+@media screen and (max-width: 768px) {  /* MOBILE NAVBAR AND BURGER MENU */
+
+    .burger-menu {
         display: flex;
-        flex-direction: column;
+        flex-direction: column; /* Stack content vertically */
+        position: relative; /* Position relative to avoid container expansion issues */
+        align-items: flex-end; /* Align the icon to the right */
+    }
+
+    .nav-links {
+        display: none; /* Hide all nav items */
+    }
+
+    .navbar {
+        justify-content: space-between; /* Ensure proper spacing between elements */
+    }
+    .dropdown-column.nav-items {
+        display: flex;
+        flex-direction: column; /* Ensure rows are stacked vertically */
+        gap: 10px; /* Add 10px of space between rows */
     }
 
     .burger-icon {
-        font-size: 1.5rem;
-        display: flex;
-        color: white;
+        display: block;
         cursor: pointer;
-    }
-
-    .dropdown .nav-link {
-        width: 100%;
+        font-size: 1.5rem;
+        color: white;
         text-align: center;
+        margin-bottom: 20px;
+        margin-top: 20px;
+        margin-left: 20px;
+        margin-right: 40px;
     }
 
-    .dropdown .nav-link:hover {
-        background-color: #444;
-    }
-
-    .nav-link {
+    /* Dropdown menu styles */
+    .dropdown-mobile {
+        display: none;
+        flex-direction: row;
+        justify-content: space-between;
         background: #333;
-        padding: 0;
-        margin: 0.2rem;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-        font-size: 20px;
+        color: white;
+        padding: 10px;
+        overflow-x: auto; /* Enable horizontal scrolling */
+        white-space: nowrap; /* Prevent text wrapping */
+        scrollbar-width: thin; /* For Firefox: thin scrollbar */
+    }
+
+    .dropdown-mobile.active {
+        display: flex;
+        position: absolute; /* Keep dropdown independent of its parent size */
+        top: 100%; /* Position it below the burger menu */
+        width: 100vw; /* Take full width of the viewport */
+        box-sizing: border-box; /* Make sure padding is inside the width */
+        margin-right: 20px;
+    }
+
+    .dropdown-column {
+        flex: 0 0 auto; /* Columns take their required width, not expanding equally */
+        min-width: 100px; /* Set a minimum width per column for readability */
+        padding: 10px;
+        border-right: 1px solid gray;
+    }
+
+    .dropdown-column:last-child {
+        border-right: none;
+    }
+    .dropdown-column.categories {
+        left: auto;
+        right: 100%;
+    }
+
+    .dropdown-item {
+        display: block;
+        margin: 5px 0;
+        color: #b78757;
         text-decoration: none;
-        right: 50%;
+    }
+    .dropdown-item:hover {
+        color: white;
+        background: rgba(183, 135, 87, 0.5);
+        border-radius: 4px;
     }
 
 }
