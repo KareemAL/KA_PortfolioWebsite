@@ -1,28 +1,28 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const currentPage = window.location.pathname; // Get the current page path
+    const currentPage = window.location.pathname;
     const pagesWithNavbar = [
-        "/Website/Portfolio_Website/index.html",
-        "/Website/Portfolio_Website/projects.html",
-        "/Website/Portfolio_Website/resume.html",
-        "/Website/Portfolio_Website/contact.html",
-        "/Website/Portfolio_Website/projects/3DWebViewer/3dwebviewer.html",
-    ]; // Exact paths
+        "/Portfolio_Website/index.html",
+        "/Portfolio_Website/projects.html",
+        "/Portfolio_Website/resume.html",
+        "/Portfolio_Website/contact.html",
+        "/Portfolio_Website/projects/3DWebViewer/3dwebviewer.html",
+    ];
 
-    // Check if the current page is in the list
     if (pagesWithNavbar.includes(currentPage)) {
-        fetch("/Website/Portfolio_Website/JS_loading/navbar.html")
+        fetch("/Portfolio_Website/JS_loading/navbar.html")
             .then((response) => response.text())
             .then((data) => {
                 const headerContainer = document.getElementById("header-container");
                 if (headerContainer) {
-                    headerContainer.innerHTML = data; // Insert the navbar HTML
-                    initNavbarDropdownLogic(); // Initialize dropdown logic here
+                    headerContainer.innerHTML = data;
+
+                    // Initialize dropdown functionality
+                    initNavbarDropdownLogic();
                 }
             })
+
             .catch((error) => console.error("Failed to load navbar:", error));
     }
-
-    console.log(currentPage);
 });
 
 
