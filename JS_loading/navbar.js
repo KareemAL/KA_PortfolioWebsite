@@ -8,13 +8,15 @@ document.addEventListener("DOMContentLoaded", () => {
         "/Portfolio_Website/projects/3DWebViewer/3dwebviewer.html",
     ];
 
+    console.log(window.location.pathname);
+
     if (pagesWithNavbar.includes(currentPage)) {
         fetch("/Portfolio_Website/JS_loading/navbar.html")
             .then((response) => response.text())
             .then((data) => {
-                const headerContainer = document.getElementById("header-container");
-                if (headerContainer) {
-                    headerContainer.innerHTML = data;
+                const LocalNavbarContainer = document.getElementById("localNavbar-container");
+                if (LocalNavbarContainer) {
+                    LocalNavbarContainer.innerHTML = data;
 
                     // Initialize dropdown functionality
                     initNavbarDropdownLogic();
